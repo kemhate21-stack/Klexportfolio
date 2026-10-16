@@ -46,6 +46,8 @@ h1{font-size:clamp(2.4rem,6.2vw,5rem);line-height:1;font-weight:800;letter-spaci
 .sub{color:var(--mute);margin-top:18px;max-width:52ch;font-size:1.05rem}
 .pill{display:inline-block;background:var(--cream);color:var(--onc);text-decoration:none;font-weight:700;border-radius:99px;padding:13px 26px;transition:transform .25s}
 .pill:hover{transform:scale(1.05)}
+.dl{position:relative}.dl summary{list-style:none}.dl summary::-webkit-details-marker{display:none}.dlm{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;display:flex;flex-direction:column;gap:2px;padding:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.35)}.dlm a{color:var(--ink);text-decoration:none;padding:10px 12px;border-radius:10px;font-size:.9rem;transition:background .2s,color .2s}.dlm a:hover,.dlm a:focus-visible{background:var(--cream);color:var(--onc)}
+
 .tools{display:flex;align-items:center;gap:20px;margin:36px 0;background:var(--cream);color:var(--onc);border-radius:99px;padding:12px 12px 12px 28px}
 .tl{display:flex;flex-direction:column;flex:none}
 .tl small{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.65}
@@ -129,7 +131,7 @@ nav{flex-direction:row;overflow-x:auto;width:100%;gap:4px;scrollbar-width:none}n
 main{margin:0;padding:150px 16px 120px}
 .c3,.c2,.c4{grid-column:span 6}.wrap{padding:10px}
 .tools{flex-direction:column;align-items:stretch;border-radius:28px;padding:18px 12px 12px;gap:12px}.tl{padding:0 8px}.acc{left:16px}.top .pill{width:100%;text-align:center}
-.ck{bottom:76px}}
+.ck{bottom:76px}.top .dl{width:100%}.dlm{left:0;right:0}}
 
 /* Glass magnifier cursor */
 #lens{
@@ -477,7 +479,7 @@ main{max-width:none;padding-bottom:90px}
 <main id="home">
 <header class="top">
 <div><h1>Behind the smooth operations</h1><p class="sub">I help small businesses run smoother with data, automations, and marketing campaigns that keep things moving.</p></div>
-<a class="pill" href="#contact">Get in touch</a>
+<details class="dl"><summary class="pill">Download resume</summary><div class="dlm" role="menu" aria-label="Choose a resume"><a href="resume/Kem_Hate_Resume_CSR_Operations.pdf" download>CSR / Operations</a><a href="resume/Kem_Hate_Resume_Data_Analyst.pdf" download>Data Analyst</a><a href="resume/Kem_Hate_Resume_AI_Automation.pdf" download>AI &amp; Automation</a></div></details>
 </header>
 <section aria-label="Tools I work with" class="tools" id="tools">
 <div class="tl"><small>Daily drivers</small><strong>Tools I work with</strong></div>
@@ -857,5 +859,6 @@ cur=T[location.hash.slice(1)]?location.hash.slice(1):'home';render();
 <div class="photo-viewer-caption" id="photoViewerCaption"></div>
 </div>
 </div>
+<script>(function(){var d=document.querySelector('.dl');if(!d)return;document.addEventListener('click',function(e){if(d.open&&!d.contains(e.target))d.open=false});document.addEventListener('keydown',function(e){if(e.key==='Escape')d.open=false});d.querySelectorAll('.dlm a').forEach(function(a){a.addEventListener('click',function(){setTimeout(function(){d.open=false},150)})})})();</script>
 </body>
 </html>
