@@ -463,6 +463,28 @@ main{max-width:none;padding-bottom:90px}
 @media(max-width:900px){.top .dl{position:fixed;top:calc(env(safe-area-inset-top) + 10px);right:12px;width:auto;z-index:52}.top .dl .pill{width:auto;padding:9px 18px;font-size:.9rem;line-height:1.2}.top .dl .dlm{left:auto;right:0;min-width:min(300px,calc(100vw - 24px))}.top>div{width:100%}}
 .rvm{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:16px}.rvm[hidden]{display:none}.rvb{background:var(--card);border:1px solid var(--line);border-radius:16px;width:min(820px,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}.rvh{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}.rvh b{flex:1;color:var(--ink);font-size:.95rem}.rvh a,.rvh button{font:inherit;font-size:.8rem;color:var(--ink);background:none;border:1px solid var(--line);border-radius:99px;padding:7px 12px;text-decoration:none;cursor:pointer}.rvh a:hover,.rvh button:hover{background:var(--cream);color:var(--onc)}.rvs{overflow:auto;-webkit-overflow-scrolling:touch;background:#fff}.rvs img{display:block;width:100%;height:auto}
 </style>
+<style id="terrain-erosion">
+/* Terrain erosion hero — drag across the hero to carve a river channel */
+:root{--ns-muted:#8f8f8f;--te-minor:#2e2e2e;--te-major:#8f8f8f}
+:root[data-theme=light]{--ns-muted:#4d4d4d;--te-minor:rgba(0,0,0,.10);--te-major:rgba(0,0,0,.32)}
+.top{position:relative;min-height:300px;padding:28px 0}
+.top>div:not(.terrain){position:relative;z-index:1}
+.top>.terrain{width:auto}
+.terrain{position:absolute;inset:-40px -44px -24px;z-index:0;overflow:hidden;user-select:none;
+  -webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.terrain canvas{position:absolute;inset:0;width:100%;height:100%}
+.te-readout{position:absolute;right:52px;bottom:40px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.2em;color:var(--ns-muted);pointer-events:none}
+.top.te-carving{cursor:crosshair;user-select:none}
+@media(max-width:900px){.terrain{inset:-20px -16px -12px}.te-readout{display:none}.top{min-height:260px}}
+
+/* Side navigation — slightly transparent glass */
+@media(min-width:901px){
+  .side{background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2)}
+}
+@media(max-width:900px){
+  .side{background:color-mix(in srgb,var(--bg) 90%,transparent)}
+}
+</style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><h2><span>Behind</span> <span>the</span> <span>smooth</span> <span>operations.</span></h2><div class="spr"><b>Form in</b><i></i><b>Checked</b><i></i><b>Approved</b><i></i><b>Confirmed</b></div><div class="spl">Running the workflow</div></div>
@@ -480,6 +502,7 @@ main{max-width:none;padding-bottom:90px}
 </aside>
 <main id="home">
 <header class="top">
+<div class="terrain" aria-label="Topographic map — drag to carve a river channel" role="img"><canvas aria-hidden="true"></canvas><div aria-hidden="true" class="te-readout">GRID --·--</div></div>
 <div><h1>Behind the smooth operations</h1><p class="sub">I help small businesses run smoother with data, automations, and marketing campaigns that keep things moving.</p></div>
 <details class="dl"><summary class="pill">Resume</summary><div class="dlm" role="menu" aria-label="Choose a resume"><div class="dlr"><span>CSR / Operations</span><button type="button" class="rv" data-f="CSR_Operations" data-t="CSR / Operations" aria-label="View CSR / Operations resume">View</button><a href="resume/Kem_Hate_Resume_CSR_Operations.pdf" download aria-label="Download CSR / Operations resume">Download</a></div><div class="dlr"><span>Data Analyst</span><button type="button" class="rv" data-f="Data_Analyst" data-t="Data Analyst" aria-label="View Data Analyst resume">View</button><a href="resume/Kem_Hate_Resume_Data_Analyst.pdf" download aria-label="Download Data Analyst resume">Download</a></div><div class="dlr"><span>AI &amp; Automation</span><button type="button" class="rv" data-f="AI_Automation" data-t="AI &amp; Automation" aria-label="View AI &amp; Automation resume">View</button><a href="resume/Kem_Hate_Resume_AI_Automation.pdf" download aria-label="Download AI &amp; Automation resume">Download</a></div></div></details>
 </header>
@@ -864,5 +887,192 @@ cur=T[location.hash.slice(1)]?location.hash.slice(1):'home';render();
 <script>(function(){var d=document.querySelector('.dl');if(!d)return;document.addEventListener('click',function(e){if(d.open&&!d.contains(e.target))d.open=false});document.addEventListener('keydown',function(e){if(e.key==='Escape')d.open=false});d.querySelectorAll('.dlm a').forEach(function(a){a.addEventListener('click',function(){setTimeout(function(){d.open=false},150)})})})();</script>
 <div class="rvm" id="rvm" hidden role="dialog" aria-modal="true" aria-labelledby="rvt"><div class="rvb"><div class="rvh"><b id="rvt">Resume</b><a id="rvd" href="#" download>Download</a><button type="button" id="rvx" aria-label="Close">Close</button></div><div class="rvs"><img id="rvi" alt="Resume preview" width="1075" height="1521"/></div></div></div>
 <script>(function(){var m=document.getElementById('rvm');if(!m)return;var last;function close(){m.hidden=true;document.body.style.overflow='';if(last)last.focus()}document.querySelectorAll('.rv').forEach(function(b){b.addEventListener('click',function(){var f=b.getAttribute('data-f');last=b;document.getElementById('rvi').src='resume/Kem_Hate_Resume_'+f+'.png';document.getElementById('rvi').alt=b.getAttribute('data-t')+' resume';document.getElementById('rvt').textContent=b.getAttribute('data-t').replace('&amp;','&')+' Resume';document.getElementById('rvd').href='resume/Kem_Hate_Resume_'+f+'.pdf';var d=document.querySelector('.dl');if(d)d.open=false;m.hidden=false;document.body.style.overflow='hidden';document.getElementById('rvx').focus()})});document.getElementById('rvx').addEventListener('click',close);m.addEventListener('click',function(e){if(e.target===m)close()});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)close()})})();</script>
+<script>
+/* ErosionTrail — vanilla port of components/ui/terrain-erosion-carve.tsx.
+   The cursor is a river: dragging across the hero carves a channel into a
+   heightfield; marching-squares isolines reflow around it, then heal back. */
+(function(){
+var host=document.querySelector('.top'),root=host&&host.querySelector('.terrain');
+if(!root)return;
+var canvas=root.querySelector('canvas'),readout=root.querySelector('.te-readout'),ctx=canvas.getContext('2d');
+if(!ctx)return;
+var gridSize=96,contourStep=0.08,brushSigma=28,carveRate=0.9,healTau=2.2;
+
+function hash2(x,y){var n=Math.sin(x*127.1+y*311.7)*43758.5453123;return n-Math.floor(n)}
+function vnoise(x,y){
+  var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  var a=hash2(xi,yi),b=hash2(xi+1,yi),c=hash2(xi,yi+1),d=hash2(xi+1,yi+1);
+  return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v
+}
+function noise2(x,y){return .65*vnoise(x,y)+.35*vnoise(x*2.1+19.7,y*2.1+7.3)}
+var mqReduce=matchMedia('(prefers-reduced-motion: reduce)');
+function reduced(){return mqReduce.matches||document.body.classList.contains('rm')}
+
+var N=gridSize,NN=N*N,base=new Float32Array(NN),delta=new Float32Array(NN),field=new Float32Array(NN),driftPhase=new Float32Array(NN);
+var freq=3.4/(N-1),driftFreq=.9/(N-1),gx,gy,i;
+for(gy=0;gy<N;gy++)for(gx=0;gx<N;gx++){
+  base[gy*N+gx]=noise2(gx*freq+11.8,gy*freq+5.2);
+  driftPhase[gy*N+gx]=noise2(gx*driftFreq+41.3,gy*driftFreq+27.6)*Math.PI*2
+}
+var ambientAmp=contourStep*.42,driftSpeed=Math.PI*2/10;
+
+var w=0,h=0,dpr=1,cellW=1,cellH=1,minorC='#2e2e2e',majorC='#8f8f8f';
+function colors(){var cs=getComputedStyle(document.documentElement);minorC=cs.getPropertyValue('--te-minor').trim()||minorC;majorC=cs.getPropertyValue('--te-major').trim()||majorC}
+function resize(){
+  var r=root.getBoundingClientRect();w=r.width;h=r.height;dpr=Math.min(2,window.devicePixelRatio||1);
+  canvas.width=Math.max(1,Math.round(w*dpr));canvas.height=Math.max(1,Math.round(h*dpr));
+  cellW=w/(N-1);cellH=h/(N-1)
+}
+colors();resize();
+
+var raf=0,last=0,elapsed=0,visible=true,down=false,rawX=0,rawY=0,sx=0,sy=0,lastSx=0,lastSy=0;
+var TRAIL_MAX=10,trailX=new Float32Array(TRAIL_MAX),trailY=new Float32Array(TRAIL_MAX),trailLen=0;
+
+// ambient sediment specks trickling downhill
+var P=42,partX=new Float32Array(P),partY=new Float32Array(P),partAge=new Float32Array(P),partLife=new Float32Array(P);
+function spawn(i){partX[i]=Math.random()*w;partY[i]=Math.random()*h;partAge[i]=0;partLife[i]=3+Math.random()*4}
+for(i=0;i<P;i++)spawn(i);
+function updateParticles(dt){
+  for(var i=0;i<P;i++){
+    var gx=Math.min(N-2,Math.max(1,Math.round(partX[i]/cellW))),gy=Math.min(N-2,Math.max(1,Math.round(partY[i]/cellH))),row=gy*N;
+    var vx=-(base[row+gx+1]-base[row+gx-1])/(2*cellW)*2600,vy=-(base[row+N+gx]-base[row-N+gx])/(2*cellH)*2600,sp=Math.hypot(vx,vy);
+    if(sp>26){vx=vx/sp*26;vy=vy/sp*26}
+    else if(sp<4){var a=noise2(partX[i]*.01,partY[i]*.01+elapsed*.15)*Math.PI*2;vx=Math.cos(a)*6;vy=Math.sin(a)*6}
+    partX[i]+=vx*dt;partY[i]+=vy*dt;partAge[i]+=dt;
+    if(partAge[i]>partLife[i]||partX[i]<0||partX[i]>w||partY[i]<0||partY[i]>h)spawn(i)
+  }
+}
+
+function carveSegment(dt){
+  var segLen=Math.hypot(sx-lastSx,sy-lastSy),speed=segLen/Math.max(dt,1e-4);
+  var speedScale=speed<=80?1:speed>=400?.25:1-.75*((speed-80)/320);
+  var stamps=Math.max(1,Math.ceil(segLen/(brushSigma*.5))),dep=carveRate*dt*speedScale/stamps;
+  var reach=brushSigma*3,inv2s2=1/(2*brushSigma*brushSigma);
+  for(var s=0;s<stamps;s++){
+    var f=stamps===1?1:s/(stamps-1),px=lastSx+(sx-lastSx)*f,py=lastSy+(sy-lastSy)*f;
+    var gx0=Math.max(0,Math.floor((px-reach)/cellW)),gx1=Math.min(N-1,Math.ceil((px+reach)/cellW));
+    var gy0=Math.max(0,Math.floor((py-reach)/cellH)),gy1=Math.min(N-1,Math.ceil((py+reach)/cellH));
+    for(var gy=gy0;gy<=gy1;gy++){
+      var dy=gy*cellH-py,row=gy*N;
+      for(var gx=gx0;gx<=gx1;gx++){
+        var dx=gx*cellW-px,wgt=Math.exp(-(dx*dx+dy*dy)*inv2s2);
+        if(wgt<.01)continue;
+        var v=delta[row+gx]+dep*wgt;delta[row+gx]=v>1?1:v
+      }
+    }
+  }
+  if(trailLen<TRAIL_MAX){trailX[trailLen]=sx;trailY[trailLen]=sy;trailLen++}
+  else{trailX.copyWithin(0,1);trailY.copyWithin(0,1);trailX[TRAIL_MAX-1]=sx;trailY[TRAIL_MAX-1]=sy}
+}
+
+function draw(){
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  var minH=Infinity,maxH=-Infinity,i;
+  for(i=0;i<NN;i++){
+    var v=base[i]-delta[i]+ambientAmp*Math.sin(driftPhase[i]-elapsed*driftSpeed);
+    field[i]=v;if(v<minH)minH=v;if(v>maxH)maxH=v
+  }
+  // waterline near the active trail while carving
+  if(down&&trailLen>0){
+    var bx0=Infinity,bx1=-Infinity,by0=Infinity,by1=-Infinity;
+    for(i=0;i<trailLen;i++){bx0=Math.min(bx0,trailX[i]);bx1=Math.max(bx1,trailX[i]);by0=Math.min(by0,trailY[i]);by1=Math.max(by1,trailY[i])}
+    var R=40,R2=R*R;
+    var gx0=Math.max(0,Math.floor((bx0-R)/cellW)),gx1=Math.min(N-1,Math.ceil((bx1+R)/cellW));
+    var gy0=Math.max(0,Math.floor((by0-R)/cellH)),gy1=Math.min(N-1,Math.ceil((by1+R)/cellH));
+    ctx.fillStyle='rgba(0,107,255,0.35)';
+    for(var gy=gy0;gy<=gy1;gy++){
+      var ny=gy*cellH,row=gy*N;
+      for(var gx=gx0;gx<=gx1;gx++){
+        if(delta[row+gx]<=.12)continue;
+        var nx=gx*cellW,near=false;
+        for(i=0;i<trailLen;i++){var ddx=nx-trailX[i],ddy=ny-trailY[i];if(ddx*ddx+ddy*ddy<R2){near=true;break}}
+        if(near)ctx.fillRect(nx-cellW/2,ny-cellH/2,cellW+1,cellH+1)
+      }
+    }
+  }
+  // marching squares — hairline minors, every 5th level major
+  var minor=new Path2D(),major=new Path2D(),kMin=Math.ceil(minH/contourStep),kMax=Math.floor(maxH/contourStep);
+  for(var k=kMin;k<=kMax;k++){
+    var t=k*contourStep,path=k%5===0?major:minor;
+    for(var y=0;y<N-1;y++){
+      var rowA=y*N,rowB=rowA+N,y0=y*cellH,y1=y0+cellH;
+      for(var x=0;x<N-1;x++){
+        var a=field[rowA+x],b=field[rowA+x+1],c=field[rowB+x+1],d=field[rowB+x];
+        var code=(a>t?8:0)|(b>t?4:0)|(c>t?2:0)|(d>t?1:0);
+        if(code===0||code===15)continue;
+        var x0=x*cellW,x1=x0+cellW;
+        var topX=x0+cellW*(t-a)/(b-a),rightY=y0+cellH*(t-b)/(c-b),botX=x0+cellW*(t-d)/(c-d),leftY=y0+cellH*(t-a)/(d-a);
+        switch(code){
+          case 1:case 14:path.moveTo(x0,leftY);path.lineTo(botX,y1);break;
+          case 2:case 13:path.moveTo(botX,y1);path.lineTo(x1,rightY);break;
+          case 3:case 12:path.moveTo(x0,leftY);path.lineTo(x1,rightY);break;
+          case 4:case 11:path.moveTo(topX,y0);path.lineTo(x1,rightY);break;
+          case 5:path.moveTo(topX,y0);path.lineTo(x1,rightY);path.moveTo(x0,leftY);path.lineTo(botX,y1);break;
+          case 6:case 9:path.moveTo(topX,y0);path.lineTo(botX,y1);break;
+          case 7:case 8:path.moveTo(topX,y0);path.lineTo(x0,leftY);break;
+          case 10:path.moveTo(topX,y0);path.lineTo(x0,leftY);path.moveTo(botX,y1);path.lineTo(x1,rightY);break
+        }
+      }
+    }
+  }
+  ctx.lineJoin='round';
+  ctx.strokeStyle=minorC;ctx.lineWidth=.75;ctx.stroke(minor);
+  ctx.strokeStyle=majorC;ctx.lineWidth=1;ctx.stroke(major);
+  if(!reduced()){
+    ctx.fillStyle=majorC;
+    for(i=0;i<P;i++){
+      var alpha=Math.max(0,Math.min(Math.min(1,partAge[i]/.6),Math.min(1,(partLife[i]-partAge[i])/.6)))*.5;
+      if(alpha<=.01)continue;
+      ctx.globalAlpha=alpha;ctx.beginPath();ctx.arc(partX[i],partY[i],1.4,0,Math.PI*2);ctx.fill()
+    }
+    ctx.globalAlpha=1
+  }
+}
+
+function loop(now){
+  var dt=last===0?1/60:Math.min(.05,(now-last)/1000);last=now;elapsed+=dt;
+  if(down){sx+=(rawX-sx)*.25;sy+=(rawY-sy)*.25;carveSegment(dt);lastSx=sx;lastSy=sy}
+  var maxDelta=0,decay=Math.exp(-dt/healTau);
+  for(var i=0;i<NN;i++){var v=delta[i]*decay;delta[i]=v;if(v>maxDelta)maxDelta=v}
+  if(!down&&maxDelta<=.002)delta.fill(0);
+  updateParticles(dt);draw();
+  if(visible&&!reduced())raf=requestAnimationFrame(loop);else{raf=0;last=0}
+}
+function wake(){if(reduced()||raf)return;last=0;raf=requestAnimationFrame(loop)}
+
+function setReadout(x,y){
+  if(!readout)return;
+  var gx=Math.min(N-1,Math.max(0,Math.round(x/cellW))),gy=Math.min(N-1,Math.max(0,Math.round(y/cellH)));
+  readout.textContent='GRID '+String(gx).padStart(2,'0')+'·'+String(gy).padStart(2,'0')
+}
+function toLocal(e){var r=canvas.getBoundingClientRect();rawX=e.clientX-r.left;rawY=e.clientY-r.top}
+
+// listeners live on the hero so dragging over the headline carves too;
+// touch keeps native scrolling, links/buttons keep their clicks
+host.addEventListener('pointerdown',function(e){
+  if(reduced()||e.pointerType==='touch'||e.button!==0)return;
+  if(e.target.closest('a,button,summary,details,input,textarea'))return;
+  e.preventDefault();toLocal(e);
+  try{host.setPointerCapture(e.pointerId)}catch(x){}
+  down=true;host.classList.add('te-carving');
+  sx=lastSx=rawX;sy=lastSy=rawY;trailLen=0;setReadout(rawX,rawY);wake()
+});
+host.addEventListener('pointermove',function(e){toLocal(e);setReadout(rawX,rawY)});
+host.addEventListener('pointerleave',function(){if(readout&&!down)readout.textContent='GRID --·--'});
+function end(){down=false;trailLen=0;host.classList.remove('te-carving')}
+['pointerup','pointercancel','lostpointercapture'].forEach(function(t){host.addEventListener(t,end)});
+
+new ResizeObserver(function(){resize();draw()}).observe(root);
+new IntersectionObserver(function(en){
+  if(!en[0])return;visible=en[0].isIntersecting;
+  if(visible)wake();else if(raf){cancelAnimationFrame(raf);raf=0;last=0}
+},{threshold:0}).observe(root);
+// follow the site's light/dark toggle and reduce-motion switch
+new MutationObserver(function(){colors();draw();wake()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+new MutationObserver(function(){draw();wake()}).observe(document.body,{attributes:true,attributeFilter:['class']});
+
+draw();wake();
+})();
+</script>
 </body>
 </html>
