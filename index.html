@@ -491,6 +491,30 @@ main{max-width:none;padding-bottom:90px}
   .side{background:color-mix(in srgb,var(--bg) 82%,transparent)}
 }
 </style>
+<style id="fixes">
+/* Photo viewer — was missing its base styles (stray buttons at page bottom, images never opened) */
+.photo-viewer{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9);padding:24px}
+.photo-viewer.open{display:flex}
+.photo-viewer-inner{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.photo-viewer img{max-width:calc(100% - 120px);max-height:calc(100% - 100px);width:auto;height:auto;object-fit:contain;border-radius:10px}
+.photo-viewer button{position:absolute;width:44px;height:44px;border:0;border-radius:50%;background:#f3eee3;color:#000;font-size:1.5rem;line-height:1;cursor:pointer}
+.photo-viewer .photo-close{top:0;right:0}
+.photo-viewer .photo-prev{left:0;top:50%;transform:translateY(-50%)}
+.photo-viewer .photo-next{right:0;top:50%;transform:translateY(-50%)}
+.photo-viewer-counter,.photo-viewer-caption{position:absolute;bottom:0;color:#f3eee3;font-size:.85rem}
+.photo-viewer-counter{left:0}.photo-viewer-caption{right:0;text-align:right;max-width:70%}
+.project-shot img,.website-marquee-card img{cursor:zoom-in}
+@media(max-width:900px){.photo-viewer{padding:12px}.photo-viewer img{max-width:100%;max-height:calc(100% - 120px)}.photo-viewer .photo-prev,.photo-viewer .photo-next{top:auto;bottom:36px;transform:none}}
+/* Card number badges removed — numbering didn't match per page */
+.card .tag{display:none}
+/* Hero call-to-action; resume stays available as a quieter secondary button */
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hero-cta .ghost{display:inline-block;border:1px solid var(--ink);color:var(--ink);background:transparent;text-decoration:none;font-weight:700;border-radius:99px;padding:12px 24px}
+.top .dl summary.pill{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.cgrp{margin:14px 0 6px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.cgrp:first-child{margin-top:0}
+#fm button{margin-left:6px;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:99px;padding:2px 10px;font:inherit;font-size:.85rem;cursor:pointer}
+</style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><h2><span>Behind</span> <span>the</span> <span>smooth</span> <span>operations.</span></h2><div class="spr"><b>Form in</b><i></i><b>Checked</b><i></i><b>Approved</b><i></i><b>Confirmed</b></div><div class="spl">Running the workflow</div></div>
@@ -510,14 +534,14 @@ main{max-width:none;padding-bottom:90px}
 <main id="home">
 <header class="top">
 <div class="terrain" aria-label="Topographic map — drag to carve a river channel" role="img"><canvas aria-hidden="true"></canvas><div aria-hidden="true" class="te-readout">GRID --·--</div></div>
-<div><h1>Behind the smooth operations</h1><p class="sub">I help small businesses run smoother with data, automations, and marketing campaigns that keep things moving.</p></div>
+<div><h1>Behind the smooth operations</h1><p class="sub">I help small businesses run smoother with data, automations, and marketing campaigns that keep things moving.</p><div class="hero-cta"><a class="pill" href="https://calendly.com/kemhate21/30min" target="_blank" rel="noopener noreferrer">Book a call</a><a class="ghost" href="#services">See packages</a></div></div>
 <details class="dl"><summary class="pill">Resume</summary><div class="dlm" role="menu" aria-label="Choose a resume"><div class="dlr"><span>CSR / Operations</span><button type="button" class="rv" data-f="CSR_Operations" data-t="CSR / Operations" aria-label="View CSR / Operations resume">View</button><a href="resume/Kem_Hate_Resume_CSR_Operations.pdf" download aria-label="Download CSR / Operations resume">Download</a></div><div class="dlr"><span>Data Analyst</span><button type="button" class="rv" data-f="Data_Analyst" data-t="Data Analyst" aria-label="View Data Analyst resume">View</button><a href="resume/Kem_Hate_Resume_Data_Analyst.pdf" download aria-label="Download Data Analyst resume">Download</a></div><div class="dlr"><span>AI &amp; Automation</span><button type="button" class="rv" data-f="AI_Automation" data-t="AI &amp; Automation" aria-label="View AI &amp; Automation resume">View</button><a href="resume/Kem_Hate_Resume_AI_Automation.pdf" download aria-label="Download AI &amp; Automation resume">Download</a></div></div></details>
 </header>
 <section aria-label="Tools I work with" class="tools" id="tools">
 <div class="tl"><small>Daily drivers</small><strong>Tools I work with</strong></div>
 <div class="tp"><div aria-hidden="true" class="mq" id="mq"></div></div>
 </section>
-<div class="wrap"><div class="grid"><a class="card c4 tile" href="#projects"><h2>Projects</h2><p class="d">Real builds, running now.</p><div class="chips"><span class="chip">5-client GHL automation</span><span class="chip">Digirents booking automation</span><span class="chip">Workplace AI agent</span></div><span class="go">Open &#8599;</span></a><a class="card c2 tile" href="#about"><h2>About</h2><p class="d">Who I am and how I work.</p><div class="chips"><span class="chip">Social media</span><span class="chip">Operations</span><span class="chip">AI automation</span></div><span class="go">Open &#8599;</span></a><a class="card c3 tile" href="#services"><h2>Services</h2><p class="d">What I can build for you.</p><div class="chips"><span class="chip">AI &amp; Automation</span><span class="chip">Customer Operations</span><span class="chip">Social Media</span><span class="chip">Data Analysis</span></div><span class="go">Open &#8599;</span></a><a class="card c3 tile" href="#contact"><h2>Contact</h2><p class="d">Tell me what is eating your week.</p><div class="chips"><span class="chip">Book a call</span><span class="chip">klexbykem@gmail.com</span></div><span class="go">Open &#8599;</span></a>
+<div class="wrap"><div class="grid"><a class="card c4 tile" href="#projects"><h2>Projects</h2><p class="d">Real builds, running now.</p><div class="chips"><span class="chip">5-client GHL automation</span><span class="chip">Digirents booking automation</span><span class="chip">Workplace AI agent</span></div><span class="go">Open &#8599;</span></a><a class="card c2 tile" href="#about"><h2>About</h2><p class="d">Who I am and how I work.</p><div class="chips"><span class="chip">Social media</span><span class="chip">Operations</span><span class="chip">AI automation</span></div><span class="go">Open &#8599;</span></a><a class="card c3 tile" href="#services"><h2>Services</h2><p class="d">What I can build for you.</p><div class="chips"><span class="chip">AI &amp; Automation</span><span class="chip">Operations &amp; Systems</span><span class="chip">Social Media</span><span class="chip">Data Analysis</span></div><span class="go">Open &#8599;</span></a><a class="card c3 tile" href="#contact"><h2>Contact</h2><p class="d">Tell me what is eating your week.</p><div class="chips"><span class="chip">Book a call</span><span class="chip">klexbykem@gmail.com</span></div><span class="go">Open &#8599;</span></a>
 <section class="card c3" id="projects"><span class="tag">1</span><h2>Projects</h2><p class="d project-subtitle">Real builds, running now.</p>
 <div class="scroll"><div class="stack" id="stk">
 <div class="pj"><b>KlexByKem Digirents</b><small>Booking automation for a digicam rental business</small></div>
@@ -544,13 +568,7 @@ main{max-width:none;padding-bottom:90px}
 <div class="cred" id="cred">Certificates available on request.</div>
 </section>
 <section class="card c3" id="services"><span class="tag">5</span><h2>Services</h2><p class="d">What I can build and manage for clients.</p>
-<ol class="ol">
-<li><b>01</b><span><strong>AI &amp; Automation</strong><br/><small style="color:var(--mute)">Automating workflows (bookings, pipelines, follow-ups, lead handling), API integrations, and website development.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">AI-assisted Funnels</span> — Pages that turn visitors into leads.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">GHL Automation</span> — Follow-up that runs on its own.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">CRM Setup</span> — A CRM your team will actually use.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Website</span> — Fast, custom, and yours to keep.</li></ul></span></li>
-<li><b>02</b><span><strong>Customer Operations</strong><br/><small style="color:var(--mute)">Process organization and operational systems that reduce repetitive manual work.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Inbox &amp; Calendar</span> — Emails sorted, meetings booked, nothing missed.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Client Support</span> — Fast, friendly replies across email and chat.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Admin &amp; Docs</span> — Files, SOPs, and trackers kept in order.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Task Coordination</span> — Follow-ups and deadlines handled for you.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Process Optimization</span> — Find the bottlenecks and make work flow faster.</li></ul></span></li>
-<li><b>03</b><span><strong>Social Media Management &amp; Marketing</strong><br/><small style="color:var(--mute)">Content and campaign support designed to keep marketing operations consistent.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Content Creation</span> — Posts and visuals made for your audience.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Content Calendar</span> — A plan that keeps you posting on time.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Account Audit</span> — What works, what doesn't, and what to fix.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Research</span> — Competitor, trend, and audience insights.</li></ul></span></li>
-<li><b>04</b><span><strong>Data Analysis</strong><br/><small style="color:var(--mute)">Reporting and analysis using Excel, SQL, Google Sheets, and Power BI.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Excel</span> — Clean sheets, formulas, and pivot reports.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">SQL</span> — Queries that pull answers from your data.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Power BI</span> — Dashboards you can read at a glance.</li></ul></span></li>
-</ol>
-<div class="pkgs" style="margin-top:22px;border-top:1px solid var(--line);padding-top:18px">
+<div class="pkgs" style="margin:6px 0 22px;border-bottom:1px solid var(--line);padding-bottom:18px">
 <h3 style="margin:0 0 4px;font-size:1.05rem">Packages</h3><p class="d" style="margin:0 0 12px">Build one or stack them all — according to your needs. Pricing quoted per project.</p>
 <details style="border-top:1px solid var(--line);padding:10px 0"><summary style="cursor:pointer"><strong>Package 1 — Establish</strong> <small style="color:var(--mute)">· Online Presence</small></summary><p style="color:var(--mute);font-size:.88rem;margin:8px 0 4px">Look credible and easy to find online and on social media.</p><ul style="list-style:none;padding:0;margin:0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Mobile-friendly website or single landing page</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Clear sections: services, about, location, contact</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Contact form that sends inquiries to your email</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Social media profile setup and optimization (one-time)</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Links to your Facebook, Instagram, and messaging apps</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Basic on-page SEO (page titles, descriptions)</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Domain and hosting setup assistance</li></ul></details>
 <details style="border-top:1px solid var(--line);padding:10px 0"><summary style="cursor:pointer"><strong>Package 2 — Convert</strong> <small style="color:var(--mute)">· Booking &amp; Lead Capture</small></summary><p style="color:var(--mute);font-size:.88rem;margin:8px 0 4px">Turn people who visit or message you into confirmed bookings and leads.</p><ul style="list-style:none;padding:0;margin:0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Landing page focused on one offer and one action</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Online booking flow with your available schedule</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Automatic booking confirmations and reminders (email or SMS)</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Lead capture form that saves every inquiry to a CRM or sheet</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Simple lead tracking: new, contacted, booked, lost</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)">— Ad and pixel tracking so you know where leads come from</li></ul></details>
@@ -565,10 +583,17 @@ main{max-width:none;padding-bottom:90px}
 </div>
 </div>
 </div>
-</section>
+
+<h3 style="margin:0 0 10px;font-size:1.05rem">What I can help with</h3>
+<ol class="ol">
+<li><b>01</b><span><strong>AI &amp; Automation</strong><br/><small style="color:var(--mute)">Automating workflows (bookings, pipelines, follow-ups, lead handling), API integrations, and website development.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">AI-assisted Funnels</span> — Pages that turn visitors into leads.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">GHL Automation</span> — Follow-up that runs on its own.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">CRM Setup</span> — A CRM your team will actually use.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Website</span> — Fast, custom, and yours to keep.</li></ul></span></li>
+<li><b>02</b><span><strong>Operations &amp; Systems</strong><br/><small style="color:var(--mute)">Process organization and operational systems that reduce repetitive manual work.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Process Optimization</span> — Find the bottlenecks and make work flow faster.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Admin &amp; Docs</span> — Files, SOPs, and trackers kept in order.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Task Coordination</span> — Follow-ups and deadlines handled for you.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Client Support</span> — Fast, friendly replies across email and chat.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Inbox &amp; Calendar</span> — Emails sorted, meetings booked, nothing missed.</li></ul></span></li>
+<li><b>03</b><span><strong>Social Media Management &amp; Marketing</strong><br/><small style="color:var(--mute)">Content and campaign support designed to keep marketing operations consistent.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Content Creation</span> — Posts and visuals made for your audience.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Content Calendar</span> — A plan that keeps you posting on time.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Account Audit</span> — What works, what doesn't, and what to fix.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Research</span> — Competitor, trend, and audience insights.</li></ul></span></li>
+<li><b>04</b><span><strong>Data Analysis</strong><br/><small style="color:var(--mute)">Reporting and analysis using Excel, SQL, Google Sheets, and Power BI.</small><ul style="list-style:none;padding:0;margin:8px 0 0;font-size:.85rem"><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Excel</span> — Clean sheets, formulas, and pivot reports.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">SQL</span> — Queries that pull answers from your data.</li><li style="display:block;padding:2px 0;border:0;color:var(--mute)"><span style="color:var(--ink);font-weight:600">Power BI</span> — Dashboards you can read at a glance.</li></ul></span></li>
+</ol></section>
 <section class="card c3" id="contact"><span class="tag">6</span><h2>FAQs / Contact</h2><p class="d">Book a call or send a message.</p>
-<details><summary>Where are you based?</summary><p>Manila, Philippines. I work with Australian clients and I'm available from 9am Manila time (11am AEST / 12pm AEDT) onwards.</p></details>
-<details><summary>What do you work on?</summary><p>AI and automation (workflows, integrations, website development), customer operations, social media management and marketing, and data analysis.</p></details>
+<details><summary>Where are you based?</summary><p>Manila, Philippines (GMT+8). I'm available from 9am Manila time onwards and work with clients across time zones.</p></details>
+<details><summary>What do you work on?</summary><p>AI and automation (workflows, integrations, website development), operations and systems, social media management and marketing, and data analysis.</p></details>
 <form id="cf" novalidate="">
 <input aria-label="Name" autocomplete="name" maxlength="80" name="n" placeholder="Name" required=""/>
 <input aria-label="Email" autocomplete="email" maxlength="120" name="e" placeholder="Email" required="" type="email"/>
@@ -579,7 +604,7 @@ main{max-width:none;padding-bottom:90px}
 </section>
 <section class="card c3" id="proof"><span class="tag">7</span><h2>Build proof</h2><p class="d">Documented work behind the services.</p>
 <div class="pj"><b>Website rental</b><small>Landing page · Pipeline integration · Booking integration</small></div>
-<p style="color:var(--mute);font-size:.88rem;margin-top:10px">The supplied project documentation directly supports the website development, automation workflow, and integration services listed above.</p>
+<p style="color:var(--mute);font-size:.88rem;margin-top:10px">Want to see how any of these were built? Book a call and I'll walk you through it.</p>
 </section>
 <section class="card c6"><h2>Book a 30-minute call</h2><p class="d">Pick a time that works for you.</p>
 <!-- Calendly inline widget begin -->
@@ -624,7 +649,7 @@ $('#mq').innerHTML=h+h;
 // projects auto-scroll needs duplicate content
 $('#stk').innerHTML+=$('#stk').innerHTML;
 // credentials (edit this list)
-var CREDS=[{name:'Data Analytics Job Simulation',issuer:'Deloitte Australia via Forage',year:'2026'},{name:'Data Labeling Job Simulation',issuer:'Forage Academy',year:'2026'},{name:'Intermediate SQL',issuer:'DataCamp',year:'2026'},{name:'Introduction to Excel',issuer:'DataCamp',year:'2026'},{name:'Understanding Excel',issuer:'DataCamp',year:'2026'},{name:'Introduction to Google Sheets',issuer:'DataCamp',year:'2026'},{name:'Pivot Tables in Google Sheets',issuer:'DataCamp',year:'2026'},{name:'BA Political Science',issuer:'Universidad de Manila',year:'in progress'},{name:'Customer Service Representative',issuer:'Wells Fargo',year:'2026 to present'},{name:'Partner Operations Specialist',issuer:'Concentrix',year:'2025 to 2026'},{name:'Customer Service Representative',issuer:'Teleperformance',year:'2023 to 2025'}];if(CREDS.length){$('#cred').className='cl';$('#cred').innerHTML=CREDS.map(function(c){return'<div class="pj"><b>'+c.name+'</b><small>'+c.issuer+', '+c.year+'</small></div>'}).join('')}
+var CREDS=[{name:'Data Analytics Job Simulation',issuer:'Deloitte Australia via Forage',year:'2026'},{name:'Data Labeling Job Simulation',issuer:'Forage Academy',year:'2026'},{name:'Intermediate SQL',issuer:'DataCamp',year:'2026'},{name:'Introduction to Excel',issuer:'DataCamp',year:'2026'},{name:'Understanding Excel',issuer:'DataCamp',year:'2026'},{name:'Introduction to Google Sheets',issuer:'DataCamp',year:'2026'},{name:'Pivot Tables in Google Sheets',issuer:'DataCamp',year:'2026'},{name:'BA Political Science',issuer:'Universidad de Manila',year:'in progress'},{name:'Customer Service Representative',issuer:'Wells Fargo',year:'2026 to present'},{name:'Partner Operations Specialist',issuer:'Concentrix',year:'2025 to 2026'},{name:'Customer Service Representative',issuer:'Teleperformance',year:'2023 to 2025'}];if(CREDS.length){var grp=function(c){return /present|to \d/.test(c.year)?'Experience':/BA |BS |Bachelor/.test(c.name)?'Education':'Certificates'};$('#cred').className='cl';$('#cred').innerHTML=['Experience','Education','Certificates'].map(function(g){var items=CREDS.filter(function(c){return grp(c)===g});return items.length?'<div class="cgrp">'+g+'</div>'+items.map(function(c){return'<div class="pj"><b>'+c.name+'</b><small>'+c.issuer+', '+c.year+'</small></div>'}).join(''):''}).join('')}
 // theme
 var r=document.documentElement,tb=$('#th'),sv=safe('t');
 var MOON='<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',SUN='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>';
@@ -647,10 +672,10 @@ if(!n||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)||g.length<10){m.textContent='Enter 
 if(Date.now()-last<30000){m.textContent='Please wait a moment before sending again.';return}
 last=Date.now();
 location.href='mailto:klexbykem@gmail.com?subject='+encodeURIComponent('Portfolio message from '+n)+'&body='+encodeURIComponent(g+'\n\n'+n+' ('+e+')');
-m.textContent='Opening your email app to send.'};
+m.textContent='Opening your email app. If nothing opens, email klexbykem@gmail.com';var cp=document.createElement('button');cp.type='button';cp.textContent='Copy email';cp.onclick=function(){var ok=function(){cp.textContent='Copied'};if(navigator.clipboard)navigator.clipboard.writeText('klexbykem@gmail.com').then(ok,function(){});};m.appendChild(cp)};
 
 // Project photo viewer: click any project image; full image is preserved with no cropping.
-(function(){
+(function(run){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run()})(function(){
   var viewer=document.getElementById('photoViewer'), img=document.getElementById('photoViewerImg'),
       cap=document.getElementById('photoViewerCaption'), counter=document.getElementById('photoViewerCounter'),
       closeBtn=document.getElementById('photoClose'), prev=document.getElementById('photoPrev'), next=document.getElementById('photoNext');
@@ -660,11 +685,14 @@ m.textContent='Opening your email app to send.'};
     if(!sources.some(function(x){return x.src===el.src})){
       sources.push({src:el.src,alt:el.alt||'',title:el.getAttribute('data-photo-title')||((el.closest('figure')||{}).querySelector ? ((el.closest('figure').querySelector('figcaption')||{}).textContent||'') : '')});
     }
-    el.addEventListener('click',function(e){
-      e.stopPropagation();
-      index=sources.findIndex(function(x){return x.src===el.src});
-      openViewer();
-    });
+  });
+  // delegated click: works for marquee copies cloned after load too
+  document.addEventListener('click',function(e){
+    var el=e.target.closest&&e.target.closest('.project-shot img, .website-marquee-card img');
+    if(!el)return;
+    e.stopPropagation();
+    index=Math.max(0,sources.findIndex(function(x){return x.src===el.src}));
+    openViewer();
   });
   function render(){
     var item=sources[index]; if(!item)return;
@@ -686,7 +714,7 @@ m.textContent='Opening your email app to send.'};
   var touchX=0;
   img.addEventListener('touchstart',function(e){touchX=e.changedTouches[0].screenX},{passive:true});
   img.addEventListener('touchend',function(e){var dx=e.changedTouches[0].screenX-touchX;if(Math.abs(dx)>45)move(dx<0?1:-1)},{passive:true});
-})();
+});
 
 // chatbot — RAG: questions go to /api/chat, which searches the site's knowledge base and answers with Gemini.
 // No API key in this file; it lives in Vercel env vars. Fixed answers are kept as an offline fallback.
