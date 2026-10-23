@@ -688,10 +688,17 @@ m.textContent='Opening your email app to send.'};
   img.addEventListener('touchend',function(e){var dx=e.changedTouches[0].screenX-touchX;if(Math.abs(dx)>45)move(dx<0?1:-1)},{passive:true});
 })();
 
-// chatbot (answers from fixed facts only; no API key in this file)
-var A={'What do you do?':'I build websites, automation workflows, API integrations, data systems, and marketing/operations workflows for small businesses.','Which tools do you use?':T.map(function(t){return t.name}).join(', ')+'.','Where are you based?':'Manila, Philippines.','How do I hire you?':'Use the booking calendar or contact form on this page.'};
-var busy=false;function add(t,c){var d=document.createElement('div');d.className='b '+c;d.textContent=t;$('#lg').appendChild(d);$('#lg').scrollTop=1e9;return d}
-function ask(q){if(busy)return;busy=true;add(q,'u');var w=add('Typing...','a');setTimeout(function(){w.textContent=A[q]||'I can help with questions about Klex, services, tools, location, and hiring. Try one of the questions below.';busy=false;$('#lg').scrollTop=1e9},350)}
+// chatbot — RAG: questions go to /api/chat, which searches the site's knowledge base and answers with Gemini.
+// No API key in this file; it lives in Vercel env vars. Fixed answers are kept as an offline fallback.
+var A={'What do you do?':'I build websites, automation workflows, API integrations, data systems, and marketing/operations workflows for small businesses.','What packages do you offer?':'Establish (online presence), Convert (booking and lead capture), Automate (business automation), plus a monthly social media add-on. Pricing is quoted per project.','Which tools do you use?':T.map(function(t){return t.name}).join(', ')+'.','How do I hire you?':'Book a free 30-minute call on the Contact page, or email klexbykem@gmail.com.'};
+var busy=false,hist=[];function add(t,c){var d=document.createElement('div');d.className='b '+c;d.textContent=t;$('#lg').appendChild(d);$('#lg').scrollTop=1e9;return d}
+function ask(q){if(busy)return;busy=true;add(q,'u');var w=add('Typing...','a');
+  var done=function(a){w.textContent=a;hist.push({role:'user',text:q},{role:'model',text:a});hist=hist.slice(-4);busy=false;$('#lg').scrollTop=1e9};
+  var offline=function(){done(A[q]||'I can\'t answer that right now. Book a call on the Contact page or email klexbykem@gmail.com.')};
+  var ctl=window.AbortController?new AbortController():null,tm=setTimeout(function(){ctl&&ctl.abort()},20000);
+  fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q:q,history:hist}),signal:ctl&&ctl.signal})
+  .then(function(r){return r.json()}).then(function(j){clearTimeout(tm);if(j&&typeof j.answer==='string'&&!(j.fallback&&A[q]))done(j.answer);else offline()})
+  .catch(function(){clearTimeout(tm);offline()})}
 var qs=$('#qs');Object.keys(A).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=k;b.onclick=function(){ask(k)};qs.appendChild(b)});
 $('#cb').onsubmit=function(e){e.preventDefault();var v=$('#ci').value.trim();if(!v||v.length>300)return;$('#ci').value='';ask(v)};
 $('#bb').onclick=function(){var o=$('#pn').classList.toggle('open');this.setAttribute('aria-expanded',o)};
