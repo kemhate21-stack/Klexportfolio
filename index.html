@@ -595,6 +595,22 @@ main{max-width:none;padding-bottom:90px}
   .hb-c{grid-column:5/7;grid-row:3}
 }
 </style>
+<style id="motion">
+/* Home: staggered card entrance, hover lift, chat bubble pop-in */
+@media(prefers-reduced-motion:no-preference){
+  body:not(.rm) .grid>.tile{animation:hbIn .7s cubic-bezier(.2,.8,.2,1) both}
+  body:not(.rm) .grid>.tile:nth-child(2){animation-delay:.07s}
+  body:not(.rm) .grid>.tile:nth-child(3){animation-delay:.14s}
+  body:not(.rm) .grid>.tile:nth-child(4){animation-delay:.21s}
+  body:not(.rm) .grid>.tile:nth-child(5){animation-delay:.28s}
+  body:not(.rm) .grid>.tile:nth-child(6){animation-delay:.35s}
+  .grid>.tile{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
+  .grid>.tile:hover{transform:translateY(-5px);box-shadow:0 18px 40px -18px rgba(0,0,0,.35),0 0 32px -6px var(--glow)}
+  body:not(.rm) .tip{animation:tipIn .5s cubic-bezier(.3,1.4,.5,1) 1.2s both}
+}
+@keyframes hbIn{from{opacity:0;transform:translateY(18px) scale(.98)}}
+@keyframes tipIn{from{opacity:0;transform:translateY(8px) scale(.9)}}
+</style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><h2><span>Behind</span> <span>the</span> <span>smooth</span> <span>operations.</span></h2><div class="spr"><b>Form in</b><i></i><b>Checked</b><i></i><b>Approved</b><i></i><b>Confirmed</b></div><div class="spl">Running the workflow</div></div>
