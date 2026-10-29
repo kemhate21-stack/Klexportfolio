@@ -98,10 +98,9 @@ details p{color:var(--mute);margin-top:6px;font-size:.92rem}
 .bb .av{position:relative;width:52px;height:52px;display:block;border-radius:50%;overflow:hidden}
 .bb img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:50% 50%;background:#fff}
 .bb .hs{position:absolute;inset:0;width:52px;height:52px;pointer-events:none}
-.bb .live{position:absolute;right:5px;bottom:5px;width:11px;height:11px;border-radius:50%;background:#22c55e;border:2px solid var(--cream)}
-.bb .live::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid #22c55e;animation:lv 1.8s ease-out infinite}
-@keyframes lv{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.2);opacity:0}}
-body.rm .bb .live::after{animation:none}
+.bb .live{position:absolute;right:8px;bottom:8px;width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 1.5px var(--cream);animation:lv 1.8s ease-in-out infinite}
+@keyframes lv{50%{opacity:.45}}
+body.rm .bb .live{animation:none}
 .panel{position:absolute;right:0;bottom:60px;width:min(340px,calc(100vw - 40px));background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;opacity:0;visibility:hidden;transform:translateY(12px) scale(.96);transform-origin:bottom right;transition:opacity .35s ease,transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s}
 .panel.open{opacity:1;visibility:visible;transform:none}
 .panel .msg{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.9rem;margin-bottom:10px;min-height:60px}
