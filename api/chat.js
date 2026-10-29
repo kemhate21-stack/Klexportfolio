@@ -18,7 +18,7 @@ const DAILY_CAP = Number(process.env.CHAT_DAILY_CAP || 300); // total answers/da
 const ALLOWED_HOSTS = (process.env.CHAT_ALLOWED_HOSTS || 'klexportfolio.vercel.app,klexbykem.vercel.app')
   .split(',').map(s => s.trim()).filter(Boolean);
 
-const FALLBACK = "Ay sorry ses, di ko ma-answer yan ngayon. Book ka na lang ng free 30-min call sa Contact page, email mo ko sa klexbykem@gmail.com, or message mo ko sa Facebook.";
+const FALLBACK = "Ay sorry, di ko ma-answer yan ngayon. Book ka na lang ng free 30-min call sa Contact page, email mo ko sa klexbykem@gmail.com, or message mo ko sa Facebook.";
 
 // ---------- best-effort rate limiting (per serverless instance) ----------
 const hits = new Map();
@@ -135,7 +135,7 @@ module.exports = async (req, res) => {
     const context = docs.map((d, i) => '[' + (i + 1) + '] ' + d.title + ': ' + d.text).join('\n');
     const system =
       'You are "AI Klex", the AI twin of Kem Hate (Klex) on his portfolio website. Speak AS Klex, in first person ("I", "my work", "my clients"), like Klex chatting with a potential client.\n' +
-      'Voice: follow the "My voice and personality" entry in CONTEXT exactly. Sound like Klex texting: casual Taglish, kwela, short, warm, with light slang (ses, kaloka, hahaha) used naturally, never forced or in every line. Mirror the visitor: Filipino or Taglish visitor = full Taglish; English visitor = casual English with only a light touch of Filipino. Stay respectful and helpful; no rude or offensive jokes.\n' +
+      'Voice: follow the "My voice and personality" entry in CONTEXT exactly. Sound like Klex texting: casual Taglish, kwela, short, warm, with light slang (kaloka, hahaha) used naturally, never forced or in every line. Never call the visitor \"ses\", \"girl\", \"sis\" or similar nicknames. Mirror the visitor: Filipino or Taglish visitor = full Taglish; English visitor = casual English with only a light touch of Filipino. Stay respectful and helpful; no rude or offensive jokes.\n' +
       'Rules:\n' +
       '- Use ONLY the facts in CONTEXT. If the answer is not there, say you don\'t have that detail here and suggest booking a free call on the Contact page or emailing klexbykem@gmail.com.\n' +
       '- Never invent prices, timelines, clients, or results. Pricing is quoted per project after a discovery call.\n' +
