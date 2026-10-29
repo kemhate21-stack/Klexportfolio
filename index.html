@@ -52,13 +52,15 @@ h1{font-size:clamp(2.4rem,6.2vw,5rem);line-height:1;font-weight:800;letter-spaci
 .tl{display:flex;flex-direction:column;flex:none}
 .tl small{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.65}
 .tl strong{font-size:1.15rem;letter-spacing:-.02em}
-.tp{flex:1;min-width:0;overflow:hidden;background:var(--pill);color:var(--pt);border-radius:99px;padding:15px 0}
-.mq{display:flex;width:max-content;animation:mq 32s linear infinite}
+.tp{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);background:var(--pill);color:var(--pt);border-radius:99px;padding:15px 0}
+.mq{display:flex;width:max-content;animation:mq 32s linear infinite;will-change:transform;backface-visibility:hidden}
 .tools:hover .mq{animation-play-state:paused}
 .mq .tool-item{display:inline-flex;align-items:center;gap:9px;font-size:1rem;font-weight:600;padding:0 30px;white-space:nowrap;line-height:1.2;border-right:1px solid rgba(128,128,128,.35)}
 .tool-logo{width:24px;height:24px;object-fit:contain;display:block;flex:0 0 24px}
 .tool-ab{display:grid!important;place-items:center;border:1.5px solid currentColor;border-radius:7px;font-size:.6rem;font-weight:800;line-height:1;width:auto!important;min-width:24px;padding:0 4px;opacity:.85}
-@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes mq{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media(prefers-reduced-motion:reduce){.mq{animation:none}}
+body.rm .mq{animation-play-state:paused}
 .wrap{border:1px solid var(--line);border-radius:28px;padding:16px;background:linear-gradient(160deg,#171715,#050505)}
 :root[data-theme=light] .wrap{background:linear-gradient(160deg,#fff,#e9e2d2)}
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
@@ -725,6 +727,8 @@ var h=T.map(function(t){
   return'<span class="tool-item">'+icon+t.name+'</span>';
 }).join('');
 $('#mq').innerHTML=h+h;
+// constant marquee speed (~45px/s) no matter how many tools are listed
+var mqSpeed=function(){var m=$('#mq');m.style.animationDuration=Math.max(20,m.scrollWidth/2/45)+'s'};mqSpeed();window.addEventListener('load',mqSpeed);
 // logo failed to load: show an initials badge instead of a broken image
 [].forEach.call(document.querySelectorAll('#mq img.tool-logo'),function(im){im.onerror=function(){var b=document.createElement('span');b.className='tool-logo tool-ab';b.setAttribute('aria-hidden','true');b.textContent=im.dataset.ab;im.replaceWith(b)}});
 // projects auto-scroll needs duplicate content
