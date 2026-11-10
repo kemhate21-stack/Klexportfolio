@@ -388,6 +388,17 @@ main{max-width:none;padding-bottom:90px}
 #cb{margin:0;padding:12px 14px 14px;gap:0;border-top:1px solid var(--line);position:relative}
 #cb input{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:16px;padding:14px 56px 14px 16px;font:inherit;font-size:.92rem}
 #cb .snd{position:absolute;right:22px;top:50%;transform:translateY(-38%);width:36px;height:36px;border-radius:50%;border:0;background:var(--cream);color:var(--onc);display:grid;place-items:center;cursor:pointer}
+/* Borderless chat: surfaces are separated by tone, not lines */
+.panel{--cs:color-mix(in srgb,var(--ink) 9%,var(--bg));--cf:color-mix(in srgb,var(--ink) 17%,var(--bg));border:0;background:var(--cs)}
+.ph-h,#cb{border:0}
+.pbody{background:var(--cs);padding-top:4px}
+.ph-x{border:0;background:var(--cf)}
+.panel .b{border:0}
+.panel .b.a,.panel .q button{background:var(--cf)}
+.panel .q button{border:0}
+.panel .q button:hover{background:var(--cream)}
+#cb input{border:0;background:var(--cf)}
+#cb input:focus-visible{outline:2px solid var(--accent);outline-offset:0}
 </style>
 <style id="motion">
 /* Home: staggered card entrance, hover lift, chat bubble pop-in */
@@ -498,7 +509,27 @@ body.rm .b.typing i,body.rm .cal::before{animation:none}
 }
 </style>
 </head>
+<style id="intro">
+/* Opening intro (CSS animated, plays once per session, tap to skip) */
+#splash{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:24px;text-align:center;animation:spo 4s forwards;cursor:pointer}
+#splash h2{font-size:clamp(2rem,6.5vw,4.2rem);line-height:1.08;letter-spacing:-.03em;font-weight:700;max-width:14ch}
+#splash h2 span{display:inline-block;opacity:0;transform:translateY(14px);animation:spw .6s forwards}
+#splash h2 span:nth-child(1){animation-delay:.2s}#splash h2 span:nth-child(2){animation-delay:.45s}#splash h2 span:nth-child(3){animation-delay:.7s}#splash h2 span:nth-child(4){animation-delay:.95s}
+.spr{display:flex;align-items:center;gap:0;opacity:0;animation:spw .6s 1.3s forwards}
+.spr i{display:block;width:clamp(22px,7vw,56px);height:2px;background:var(--line)}
+.spr b{font-size:.78rem;font-weight:600;padding:8px 14px;border-radius:99px;border:1px solid var(--line);color:var(--mute);animation:spn .5s forwards}
+.spr b:nth-of-type(1){animation-delay:1.6s}.spr b:nth-of-type(2){animation-delay:1.95s}.spr b:nth-of-type(3){animation-delay:2.3s}.spr b:nth-of-type(4){animation-delay:2.65s}
+.spl{position:absolute;bottom:34px;color:var(--mute);font-size:.8rem;opacity:0;animation:spw .5s 1.5s forwards}
+@keyframes spw{to{opacity:1;transform:none}}
+@keyframes spn{to{background:var(--ink);color:var(--bg);border-color:var(--ink)}}
+@keyframes spo{0%,85%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}
+@media(max-width:600px){.spr{flex-wrap:wrap;justify-content:center;row-gap:10px}.spr i{display:none}.spr b{margin:0 4px}}
+@media(prefers-reduced-motion:reduce){#splash{display:none}}
+body.rm #splash{display:none}
+</style>
 <body>
+<div id="splash" aria-hidden="true"><h2><span>Behind</span> <span>the</span> <span>smooth</span> <span>operations.</span></h2><div class="spr"><b>Form in</b><i></i><b>Checked</b><i></i><b>Approved</b><i></i><b>Confirmed</b></div><div class="spl">Running the workflow</div></div>
+<script>(function(){var e=document.getElementById('splash');if(!e)return;try{if(sessionStorage.getItem('sp')){e.remove();return}sessionStorage.setItem('sp','1')}catch(x){}e.addEventListener('click',function(){e.remove()});setTimeout(function(){e.remove()},4200)})();</script>
 <div class="mbar"><button aria-controls="sd" aria-expanded="false" aria-label="Open menu" id="mb" type="button"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button><span id="mt">Home</span></div>
 <div class="ov" id="ov"></div>
 <div aria-hidden="true" id="terrain-bg"><canvas></canvas></div>
